@@ -5,8 +5,22 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
-    "splash": { "backgroundColor": "#F7F7F2" },
-    "ios": { "supportsTablet": true, "bundleIdentifier": "edu.quickbite.app" },
-    "android": { "package": "edu.quickbite.app", "adaptiveIcon": { "backgroundColor": "#F7F7F2" } }
+    "splash": {
+      "backgroundColor": "#F7F7F2"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "edu.quickbite.app"
+    },
+    "android": {
+      "package": "edu.quickbite.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#F7F7F2"
+      }
+    },
+    "plugins": [
+      "expo-asset",
+      "expo-font"
+    ]
   }
 }

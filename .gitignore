@@ -5,3 +5,9 @@ web-build/
 .DS_Store
 *.log
 coverage/
+
+# Generated local native projects and export bundles
+/android/
+/ios/
+/.expo-export/
+/.android-user/

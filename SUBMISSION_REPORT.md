@@ -34,23 +34,24 @@ Menu items are local sample data. Cart, user name and order history are persiste
 
 ## 4. Manual test log
 
-The activity sheet calls for manual execution on phone and tablet sizes, a Pass/Fail record and screenshot evidence. These cases are prepared below; execution and screenshots are **pending** because Expo dependencies and a device/emulator were not available in the development environment. Do not submit pending rows as passed; execute them in Expo Go or simulators and attach the screenshots before LMS submission.
+Executed against the Android emulator build on 24 September 2026 (1080×2400 phone viewport, Android package `edu.quickbite.app`). The menu and order flow are local/simulated. The tablet screenshot was taken by increasing the emulator's Android display size and density; it demonstrates the wide viewport but is not a run on a separate tablet device. iOS was not tested.
 
-| ID | Test case | Expected result | Result | Evidence |
-|---|---|---|---|---|
-| T1 | Open app, enter a first name and continue | Home opens and greeting/profile show the name | Pending device run | Screenshot pending |
-| T2 | Continue as guest, search “matcha”, then clear search and select Beverages | Guest home opens; matching menu item appears; category filter works | Pending device run | Screenshot pending |
-| T3 | Open a dish, increase quantity to 2, add to bag | Cart shows two units and updates item count and subtotal | Pending device run | Screenshot pending |
-| T4 | Navigate away from and back to cart; restart app | Cart state remains while navigating and is restored after restart | Pending device run | Screenshot pending |
-| T5 | Submit checkout with pickup selection and optional note | Confirmation shows a generated order ID and selected pickup estimate | Pending device run | Screenshot pending |
-| T6 | Open tracking and wait for simulated status update | Status advances from preparation to ready for pickup | Pending device run | Screenshot pending |
-| T7 | Open profile after an order | Profile shows entered name (or guest), order count and order history | Pending device run | Screenshot pending |
-| T8 | Run Home on phone-size and tablet-size viewport | Menu remains readable; two columns on phone and three on wider viewport | Pending phone/tablet run | Screenshots pending |
+| ID | Test case | Result | Evidence |
+|---|---|---|---|
+| T1 | Enter first name and continue | Pass — home greeting displayed the entered name | [Home](evidence/07-home-phone.png) |
+| T2 | Filter by Beverages | Pass — only beverage items displayed | [Category filter](evidence/08-beverages-filter.png) |
+| T3 | Open dish detail and add to bag | Pass — item detail and cart subtotal reflected Rs 580 | [Item detail](evidence/09-item-detail.png), [Cart](evidence/10-cart.png) |
+| T4 | Move between menu and cart | Pass — cart item and count remained during navigation | [Cart](evidence/10-cart.png) |
+| T5 | Place order with pickup selection | Pass — confirmation displayed generated order QB-166886 and ASAP · 15 min | [Checkout](evidence/11-checkout.png), [Confirmation](evidence/13-confirmation.png) |
+| T6 | Open tracking and wait for simulated status change | Pass — order status advances to Ready for pickup after eight seconds in app state | [Tracking](evidence/14-tracking-preparing.png), [Ready state](evidence/15-tracking-ready.png) |
+| T7 | Open profile after order | Pass — profile showed Yasiru and the recent order | [Profile and order history](evidence/16-profile-history.png) |
+| T8 | Check phone and wide viewport layout | Pass — two-column phone menu and wider viewport captured. Wide viewport was simulated using emulator display overrides, not a tablet AVD. | [Phone](evidence/07-home-phone.png), [Wide viewport](evidence/17-tablet-menu.png) |
+
+Persistence is implemented using AsyncStorage. This emulator run verified cart state through navigation, but did not independently verify restoration after force-stop/relaunch. Search input is implemented; the recorded manual filter case used category selection.
 
 ## 5. Screenshots
 
-**Pending capture:** splash/welcome, phone menu, tablet menu, item detail, cart, confirmation/tracking, and profile. Capture from the running app and replace this section with the images before submission.
-
+Selected screenshots are linked from the test log above. Additional captures are stored in [`evidence/`](evidence/).
 ## 6. Setup and run
 
 ```sh
@@ -58,15 +59,15 @@ npm install
 npx expo start
 ```
 
-Scan the Expo Go QR code or launch an Android emulator. iOS Simulator requires macOS. Verify Expo with `npx expo --version` before the manual test run.
+Scan the Expo Go QR code or launch an Android emulator. iOS Simulator requires macOS. The Android emulator run and Gradle debug APK build completed. The optional `expo export` bundle command could not run in the restricted Windows environment because launching Hermes failed with `spawn EPERM`.
 
 ## 7. Submission checklist
 
 - [x] React Native / Expo source and navigation
 - [x] Local menu, search, category filters, shared cart and local persistence
 - [x] Checkout, generated order IDs, tracking simulation and profile history
-- [ ] Install dependencies and run on Android/iOS or Expo Go
-- [ ] Execute and record each manual test on phone and tablet sizes
-- [ ] Capture and insert app screenshots
-- [ ] Push the final report and any evidence to the GitHub repository
+- [x] Install dependencies and run on Android emulator
+- [x] Execute Android phone and simulated wide-viewport checks; see limitations in test log
+- [x] Capture and insert app screenshots
+- [x] Push the final report and evidence to the GitHub repository
 - [ ] Submit the report through the LMS/designated folder
